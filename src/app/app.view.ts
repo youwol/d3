@@ -1,8 +1,7 @@
 import { HTMLElement$, VirtualDOM } from '@youwol/flux-view'
 import *  as d3 from 'd3'
-import * as dataframe from '@youwol/dataframe'
+//import * as dataframe from '@youwol/dataframe'
 import { dataRoseReturn } from './dataRoseTest'
-import { dataReturn } from './data'
 
 
 export class AppView implements VirtualDOM {
@@ -15,15 +14,6 @@ export class AppView implements VirtualDOM {
     constructor() {
 
         this.children = [
-            /* ideally it would have been:
-            {
-                tag:'svg',
-                class: 'h-100 w-100',
-                connectedCallback: (svg: SVGSVGElement) => {
-                    plot(svg)
-                }
-            }
-            ... but svg namespace not supported yet by flux-view, thus the snippet below */
         ]
         this.connectedCallback = (elem: HTMLElement$ & HTMLDivElement) => {
             var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -207,9 +197,6 @@ function plot(svgDom: SVGSVGElement): any {
             .attr('class', 'val')
             .attr('x', 159)
             .attr('y', -150)
-            //.attr('y', function() { return angle(datum.startAngle)}) 
-            //.attr('x', function() {return freq(datum.freq)})
-            //.attr('y', function() { return angle(datum.startAngle)}) 
             .text(function () { return ["Lower limit " + (datum.startAngle * 180 / Math.PI).toFixed(0) + "°"] })
         g.append("text")
             .attr('class', 'val')
