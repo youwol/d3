@@ -1,90 +1,66 @@
 const path = require('path');
 const webpack = require('webpack');
-const ROOT = path.resolve(__dirname, 'src/app');
-const DESTINATION = path.resolve(__dirname, 'dist');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const pkg = require('./package.json');
+const ROOT = path.resolve(__dirname, 'src');
+const DESTINATION = path.resolve(__dirname, 'dist')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
     context: ROOT,
     mode: 'development',
     entry: {
-        'main': './main.ts'
-    },
-    experiments: {
-        topLevelAwait: true
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: "style.[contenthash].css",
-            insert: "#css-anchor"
-        }),
-        new HtmlWebpackPlugin({
-            //hash: true,
-            title: 'Flux Builder',
-            template: './index.html',
-            filename: './index.html'
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        // new BundleAnalyzerPlugin()
-    ],
-    output: {
-        filename: '[name].[contenthash].js',
-        path: DESTINATION
+        'main': './index.ts'
     },
 
+    output: {
+        path: DESTINATION,
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
+        library: pkg.name,
+        filename: pkg.name + ".js",
+        globalObject: `(typeof self !== 'undefined' ? self : this)`
+    },
+
+    plugins: [
+    //    new BundleAnalyzerPlugin()
+    ],
+
     resolve: {
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', 'tsx', '.js'],
         modules: [
             ROOT,
             'node_modules'
         ]
     },
+
     externals: [{
-        /*
-        To re enable when served using py-youwol
         "lodash": "_",
         "d3": "d3",
-        "rxjs": "rxjs",
-        "rxjs/operators": "window['rxjs']['operators']",
         "@youwol/logging": "window['@youwol/logging']",
-        "@youwol/flux-view": "window['@youwol/flux-view']"*/
-    }
-    ],
+        'rxjs': "rxjs",
+        'rxjs/operators': {
+            commonjs:'rxjs/operators',
+            commonjs2:'rxjs/operators',
+            root:['rxjs','operators']
+        },
+        '@youwol/flux-core': "@youwol/flux-core",
+        '@youwol/cdn-client': '@youwol/cdn-client',
+        '@youwol/flux-view': "@youwol/flux-view",
+    }],
+
     module: {
         rules: [
-            /****************
-            * PRE-LOADERS
-            *****************/
-            {
-                enforce: 'pre',
-                test: /\.js$/,
-                use: 'source-map-loader'
-            },
-            /****************
-            * LOADERS
-            *****************/
             {
                 test: /\.ts$/,
-                exclude: [/node_modules/],
-                use: 'ts-loader'
-            },
-            {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                use: [
+                    { loader: 'ts-loader' },
+                  ],
+                  exclude: /node_modules/,
             }
-        ]
+        ],
     },
-    devtool: 'cheap-module-source-map',
-    devServer: {
-        static: {
-            directory: path.join(__dirname, './src'),
-        },
-        compress: true,
-        port: 3000
-    }
+    devtool: 'source-map',
+
 };
 
 

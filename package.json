@@ -3,11 +3,12 @@
     "version": "0.0.0-next",
     "description": "extension of D3.js",
     "author": "rplateaux@youwol.com",
-    "main": "dist/index.html",
+    "main": "dist/@youwol/d3-extra.js",
     "scripts": {
+        "autogen": "node scripts/auto-gen.js",
         "build": "yarn build:dev",
-        "build:dev": "del-cli dist && webpack --mode development",
-        "build:prod": "del-cli dist && webpack --mode production",
+        "build:dev": "yarn autogen && del-cli dist && webpack --mode development",
+        "build:prod": "yarn autogen && del-cli dist && webpack --mode production",
         "test": "jest -c ./jest.config.js --rootDir . -i",
         "test-coverage": "jest -c ./jest.config.js --rootDir . -i --collect-coverage --collectCoverageFrom=./src/app/**/*.ts ",
         "doc": "typedoc src/ --exclude src/index.ts --exclude src/tests --out dist/docs --theme default",
@@ -15,15 +16,25 @@
         "publish-npm-public": "yarn build:prod && yarn test-coverage && yarn publish --access public"
     },
     "license": "MIT",
-    "dependencies": {
+    "peerDependencies": {
         "@youwol/cdn-client": "^0.0.10",
-        "@youwol/dataframe": "^0.0.28",
         "@youwol/flux-view": "^0.0.10",
         "d3": "^7.2.1",
         "lodash": "4.17.15",
-        "rxjs": "6.5.5"
+        "rxjs": "6.5.5",
+        "@youwol/flux-core": "^0.0.23",
+        "@youwol/logging": "^0.0.2",
+        "reflect-metadata": "^0.1.13"
     },
     "devDependencies": {
+        "@youwol/cdn-client": "^0.0.10",
+        "@youwol/flux-view": "^0.0.10",
+        "d3": "^7.2.1",
+        "lodash": "4.17.15",
+        "rxjs": "6.5.5",
+        "@youwol/flux-core": "^0.0.23",
+        "@youwol/logging": "^0.0.2",
+        "reflect-metadata": "^0.1.13",
         "@types/jest": "26.0.22",
         "@types/node": "14.14.37",
         "css-loader": "5.2.0",
@@ -47,13 +58,16 @@
         "webpack-dev-server": "^4.7.1"
     },
     "youwol": {
-        "type": "application",
+        "type": "flux-pack",
         "cdnDependencies": {
-            "@youwol/cdn-client": "^0.0.10",
-            "@youwol/flux-view": "^0.0.10",
             "d3": "^7.2.1",
             "lodash": "4.17.15",
-            "rxjs": "6.5.5"
+            "rxjs": "6.5.5",
+            "@youwol/flux-core": "^0.0.23",
+            "@youwol/logging": "^0.0.2",
+            "reflect-metadata": "^0.1.13",
+            "@youwol/cdn-client": "^0.0.10",
+            "@youwol/flux-view": "^0.0.10"
         }
     }
 }
