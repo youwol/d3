@@ -5,6 +5,7 @@ import {
     Context, freeContract
 } from '@youwol/flux-core'
 import *  as d3 from 'd3'
+import { RenderingUpdate } from '@youwol/flux-view';
 
 
 let svgIcon = `<g transform="translate(250,250)"><g><path d="M0.09999958333385996,-106.92303016086645A106.92307692307692,106.92307692307692,0,0,1,32.94592815441635,-101.72074614719585L2.99491017732055,-9.540991197448083A10,10,0,0,0,0.09999958333385522,-9.999499991666237Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M58.808326054637526,-180.66981149780239A190,190,0,0,1,111.59828110531727,-153.7719859218141L5.79665726305262,-8.148543708829163A10,10,0,0,0,3.1851206880334755,-9.479188056086933Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M58.85939720256977,-80.84288070665296A100,100,0,0,1,80.84288070665296,-58.85939720256977L8.030987148191098,-5.958459987747623A10,10,0,0,0,5.958459987747624,-8.030987148191098Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M125.76754675837697,-91.25186508014133A155.3846153846154,155.3846153846154,0,0,1,147.74861881982218,-48.11158213008321L9.479188056086933,-3.185120688033474A10,10,0,0,0,8.148543708829163,-5.796657263052619Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M160.97889930607965,-52.2000692781239A169.23076923076923,169.23076923076923,0,0,1,169.23073968555832,-0.09999958333385416L9.999499991666237,-0.09999958333385417A10,10,0,0,0,9.540991197448083,-2.99491017732055Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M183.07689576622428,0.09999958333385416A183.0769230769231,183.0769230769231,0,0,1,174.14737627223678,56.4787668138177L9.540991197448083,2.99491017732055A10,10,0,0,0,9.999499991666237,0.09999958333385417Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M127.99590183669251,41.69353532815014A134.6153846153846,134.6153846153846,0,0,1,108.96488208952864,79.0440146144099L8.148543708829163,5.796657263052619A10,10,0,0,0,9.479188056086933,3.185120688033474Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M136.8517660959405,99.55223438406523A169.23076923076923,169.23076923076923,0,0,1,99.55223438406524,136.85176609594046L5.958459987747624,8.030987148191098A10,10,0,0,0,8.030987148191098,5.958459987747623Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M99.39043165937025,136.96932265657856A169.23076923076923,169.23076923076923,0,0,1,52.39027978883684,160.9170961647185L3.1851206880334755,9.479188056086933A10,10,0,0,0,5.79665726305262,8.148543708829163Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M32.94592815441635,101.72074614719585A106.92307692307692,106.92307692307692,0,0,1,0.09999958333385996,106.92303016086645L0.09999958333385522,9.999499991666237A10,10,0,0,0,2.99491017732055,9.540991197448083Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-0.09999958333384687,106.92303016086645A106.92307692307692,106.92307692307692,0,0,1,-32.945928154416336,101.72074614719585L-2.994910177320549,9.540991197448083A10,10,0,0,0,-0.099999583333854,9.999499991666237Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-58.808326054637504,180.66981149780239A190,190,0,0,1,-111.59828110531724,153.7719859218141L-5.79665726305262,8.14854370882916A10,10,0,0,0,-3.185120688033474,9.479188056086933Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-58.85939720256975,80.84288070665298A100,100,0,0,1,-80.84288070665296,58.85939720256977L-8.030987148191098,5.958459987747623A10,10,0,0,0,-5.958459987747621,8.0309871481911Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-125.76754675837695,91.25186508014136A155.3846153846154,155.3846153846154,0,0,1,-147.74861881982216,48.111582130083214L-9.479188056086933,3.1851206880334737A10,10,0,0,0,-8.14854370882916,5.796657263052623Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-160.97889930607963,52.200069278123955A169.23076923076923,169.23076923076923,0,0,1,-169.23073968555832,0.09999958333383914L-9.999499991666237,0.09999958333385361A10,10,0,0,0,-9.540991197448081,2.994910177320553Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-183.07689576622428,-0.09999958333383485A183.0769230769231,183.0769230769231,0,0,1,-174.1473762722368,-56.47876681381768L-9.540991197448083,-2.99491017732055A10,10,0,0,0,-9.999499991666237,-0.09999958333385116Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-127.99590183669251,-41.69353532815015A134.6153846153846,134.6153846153846,0,0,1,-108.96488208952867,-79.04401461440987L-8.14854370882916,-5.79665726305262A10,10,0,0,0,-9.479188056086933,-3.1851206880334715Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-136.85176609594052,-99.55223438406519A169.23076923076923,169.23076923076923,0,0,1,-99.55223438406529,-136.85176609594046L-5.958459987747623,-8.030987148191098A10,10,0,0,0,-8.0309871481911,-5.958459987747621Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-99.39043165937022,-136.96932265657856A169.23076923076923,169.23076923076923,0,0,1,-52.39027978883689,-160.9170961647185L-3.185120688033474,-9.479188056086933A10,10,0,0,0,-5.796657263052623,-8.14854370882916Z" stroke="black" style="fill: rgb(0, 0, 0);"></path><path d="M-32.945928154416315,-101.72074614719587A106.92307692307692,106.92307692307692,0,0,1,-0.09999958333392053,-106.92303016086645L-0.09999958333385423,-9.999499991666237A10,10,0,0,0,-2.9949101773205533,-9.540991197448081Z" stroke="black" style="fill: rgb(0, 0, 0);"></path></g><circle cx="0" cy="0" r="190" stroke="black" style="fill: none;"></circle><circle cx="0" cy="0" r="10" stroke="black" style="fill: none;"></circle><g><g text-anchor="middle" transform="rotate(-90)translate(220,0)"><text transform="rotate(-90)translate(0,5)" style="font-size: 14px;">N</text></g><g text-anchor="middle" transform="rotate(0)translate(220,0)"><text transform="rotate(0)translate(0,5)" style="font-size: 14px;">E</text></g><g text-anchor="middle" transform="rotate(90)translate(220,0)"><text transform="rotate(-90)translate(0,0)" style="font-size: 14px;">S</text></g><g text-anchor="middle" transform="rotate(180)translate(220,0)"><text transform="rotate(180)translate(0,5)" style="font-size: 14px;">W</text></g></g><g class="axis" stroke-width="0.5" transform="rotate(0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(29.999999999999996)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(59.99999999999999)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(90)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(119.99999999999999)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(150.00000000000003)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(180)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(210)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(239.99999999999997)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(270)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(300.00000000000006)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g class="axis" stroke-width="0.5" transform="rotate(329.99999999999994)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" style="opacity: 0.2;"><path class="domain" stroke="currentColor" d="M0,-10V-190"></path></g><g text-anchor="middle"></g></g>`
@@ -72,7 +73,7 @@ return {
         @Property({
             description: "Inner radius"
         })
-        innnerRadius: number = 10
+        innerRadius: number = 10
 
         @Property({
             description: "Colour fill"
@@ -94,6 +95,17 @@ return {
         })
         colourHover: string = "purple"
 
+        constructor({width, height, innerRadius, colourFill, gradTickSpacing, binArc, colourHover}:
+            {width?: number, height?: number, innerRadius?: number, colourFill?: string, gradTickSpacing: number, binArc?: number, colourHover?: string }) {
+                this.width           = width != undefined ? width : 500
+                this.height          = height != undefined ? height : 500
+                this.innerRadius    = innerRadius != undefined ? innerRadius : 10
+                this.colourFill      = colourFill != undefined ? colourFill : '#00FF00' 
+                this.binArc          = binArc != undefined ? binArc : 15
+                this.gradTickSpacing = gradTickSpacing != undefined ? gradTickSpacing : 5
+                this.colourHover       = colourHover != undefined ? colourHover : 'purple'
+
+            }
     }
 
     @Flux({
@@ -145,19 +157,35 @@ return {
 
         init(renderingDiv: HTMLDivElement) {
             this.renderingDiv = renderingDiv
-
+            if (this.cachedData){
+                this.plot(this.cachedData.traces, this.cachedData.config, undefined)
+                this.cachedData = undefined
+            }
         }
 
+        cachedData:{traces: any, config: PersistentData}
+        svg: SVGSVGElement
         plot(traces: any, config: PersistentData, context: Context) {
             let div = this.renderingDiv
-            var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.classList.add('h-100','w-100','img-fluid')
-            div.appendChild(svg)
+
+            if (div == undefined){
+                this.cachedData = {
+                    traces, config
+                }
+                return 
+            }
+
+            if (this.svg) {
+                this.svg.remove()
+            }
+            this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            this.svg.classList.add('h-100', 'w-100','img-fluid')
+            div.appendChild(this.svg)
             
-            const rose = d3.select(svg)
+            const rose = d3.select(this.svg)
             const width = config.width
             const height = config.height
-            const innerRadius = config.innnerRadius
+            const innerRadius = config.innerRadius
             const margin = { top: 40, right: 80, bottom: 40, left: 40 }
             const chartWidth = width - margin.left - margin.right
             const chartHeight = height - margin.top - margin.bottom
@@ -315,12 +343,12 @@ return {
                     .attr('class', 'val')
                     .attr('x', 159)
                     .attr('y', -150)
-                    .text(function () { return ["Lower limit " + (datum.startAngle * 180 / Math.PI).toFixed(0) + "°"] })
+                    .text(function () { return ["Lower limit " + (event.startAngle * 180 / Math.PI).toFixed(0) + "°"] })
                 g.append("text")
                     .attr('class', 'val')
                     .attr('x', 159)
                     .attr('y', -130)
-                    .text(function () { return ["Upper limit " + (datum.endAngle * 180 / Math.PI).toFixed(0) + "°"] })
+                    .text(function () { return ["Upper limit " + (event.endAngle * 180 / Math.PI).toFixed(0) + "°"] })
 
             }
             //let d = binArc(dataRoseReturn(), 40)
@@ -338,7 +366,7 @@ return {
                         .padRadius(20))
                     .attr('stroke', 'black')
                     .attr('stroke-width', '1')
-                d3.selectAll('.val')
+                g.selectAll('.val')
                     .remove()
 
             }
