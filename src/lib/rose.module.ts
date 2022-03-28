@@ -299,7 +299,7 @@ return {
                     .tickSizeOuter(0)
                     .scale(radius.copy().range([-innerRadius, -(outerRadius)])))
 
-            // Add circular tick with frequency values    
+            // Add circular tick with frequency values |   
             let yAxis = g.append("g")
                 .attr("text-anchor", "middle")
 
