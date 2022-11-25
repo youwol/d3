@@ -30,7 +30,7 @@
         "@youwol/cdn-client": "^0.0.10",
         "@youwol/flux-view": "^0.0.10",
         "d3": "^7.2.1",
-        "lodash": "4.17.15",
+        "lodash": "4.17.21",
         "rxjs": "6.5.5",
         "@youwol/flux-core": "^0.0.23",
         "@youwol/logging": "^0.0.2",
