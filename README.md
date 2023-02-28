@@ -1,4 +1,5 @@
 # workspace-explorer
+*ARCHIVED*
 
 <p>
     <a href="https://github.com/kefranabg/readme-md-generator/graphs/commit-activity" target="_blank">
